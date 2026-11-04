@@ -1,0 +1,50 @@
+TAREFA: MZ FRAMEWORK — MZ_JOBS / WAVE 0 (AUDITORIA E BLUEPRINT; SEM IMPLEMENTAÇÃO)
+
+CONTEXTO
+Estamos criando uma plataforma de trabalhos legal/ilegal para a MZ Framework que conectará jogadores, empresas, estoque, mz_economy e mz_population, aproveitando MECÂNICAS de scripts de terceiros organizados na pasta local de referência.
+
+CAMINHOS CANÔNICOS DESTA TAREFA (WINDOWS)
+- Repositório principal: `D:\git-hub\repo_oficial`
+- Scripts de referência: `D:\git-hub\repo_oficial\ref\trabalhos`
+- Plano de arquitetura a consultar: `PLANO_MESTRE_MZ_JOBS.md` (arquivo anexado com a tarefa ou disponibilizado no workspace).
+
+A pasta `ref\trabalhos` contém os trabalhos DESCOMPACTADOS em subpastas. É esse o caminho correto para a análise. NÃO procurar `trabalhos.zip` na raiz nem solicitar que seja descompactado novamente. NÃO confundir a pasta de referência com um resource executável do servidor. Leia integralmente o plano antes de propor qualquer coisa.
+
+OBJETIVO DESTA EXECUÇÃO
+Não quero 30 scripts separados, dinheiro próprio, checkpoints genéricos ou uma framework paralela. Quero primeiro conferir a arquitetura REAL do repositório LOCAL e entregar a especificação exata da fundação de `mz_jobs`, com contratos/API/SQL/árvore e plano de testes. A implementação virá em outra Wave, após validação do blueprint.
+
+INSTRUÇÕES OBRIGATÓRIAS
+1. Trabalhe na raiz real do workspace da framework. Leia os manifests/código/documentação atuais de `mz_core`, `mz_economy`, `mz_population`, `mz_inventory`, `mz_org`, `mz_target`, `mz_radialmenu` (ou nome real), `mz_navigation`, `mz_vehicles`, `mz_garagem`, `mz_phone`, `mz_frontend`, `mz_police`, `mz_dispatch` e `mz_starter`, se existirem. NÃO presuma que nomes de exports dos documentos antigos estejam atuais. A autoridade financeira migrou para mz_economy; prove no código que os caminhos foram compreendidos.
+2. Identifique exatamente quais operações são públicas e autorizadas. Para cada integração liste owner, export/event, arquivo/linha, payload, retorno, auth, fail-mode, reconexão, testes e lacunas. Não invente exports e NÃO edite mz_core ou recursos alheios para fazer caber sua solução.
+3. Inspecione SOMENTE EM LEITURA `D:\git-hub\repo_oficial\ref\trabalhos` e seus subdiretórios. Percorra as subpastas reais, manifests, configs, documentação e códigos relevantes; o pacote recebido tinha 32 diretórios principais, mas confirme o estado LOCAL. Crie inventário por subpasta com: caminho relativo, atividade legal/ilegal/auxiliar, mecânicas úteis, dependências, eventos críticos, licença/proveniência, risco e possibilidade de integração com owners MZ. Evite leitura de binários/assets pesados e segredos. Não executar scripts de terceiros, não adicionar `ensure`, não editar a pasta `ref`, não portar código ofuscado, credenciais/webhooks, notify/progress antigos, SQL ou compatibilidade ESX/vRP sem justificativa e licença.
+3.1. Antes de comparar, localize os diretórios reais dos recursos MZ no repositório (por exemplo por `fxmanifest.lua`) e examine o código atual. Não presuma que recursos estejam todos na raiz.
+3.2. Se `D:\git-hub\repo_oficial\ref\trabalhos` não existir ou não estiver acessível, registre o impedimento; não invente uma análise dos arquivos. Não procure arquivos fora da raiz informada.
+4. Confirme owners: mz_jobs=contratos/progressão/execuções; mz_economy=dinheiro/ledger/settlements; mz_population=demanda/NPCs; mz_inventory=itens/estoque; mz_org=cargos/duty/folha; mz_navigation=rotas; mz_target/radial=interações; mz_frontend=UI; mz_police/dispatch=consequências criminais.
+5. Separar carreira/progressão individual de cargo org, contrato autônomo e job virtual NPC; evitar estrutura de config gigante ou duplicação de dados.
+6. Elaborar máquina de estados com reserva concorrente, idempotência por execution/settlement, cancelamento, expiração, disconnect/reconnect, restart, queda temporária de dependência, reserva de itens/fundos e outbox/reconciliação. Nenhum pagamento em função de dados do client.
+7. Detalhar segurança FiveM: callbacks client são apenas intenções; verificar source/personagem/coords/tempo/inventário/veículo/stage no SERVER. Considerar `GetInvokingResource` em operações chamadas por recursos, conforme autoridade real. Não usar apenas checagem de UI/target como segurança.
+8. Prioridade do jogador sobre NPC, com mecanismo de demanda por distrito, ofertas publicadas, prazo de aceitação, trabalho virtual parcialmente substitutivo, orçamentos finitos e limites de simulação/spawn. Não criar segundo simulador de peds.
+9. Definir PILOTO MINIMO: uma entrega de carga REAL em estoque por um jogador, com origem, destino, `mz_navigation`, `mz_target`, verificação, líquido do orçamento, crédito via economy e auditoria. A produção real de itens e trabalhos simulados por NPC entram depois.
+10. O projeto usa idioma por servidor: pt-BR por padrão, en-US como fallback; UI contextual minimalista pelo mz_frontend; configurações públicas mínimas; feature flag OFF; sem branches/worktrees/commits automáticos.
+11. Sem bootstrap SQL runtime; migrations/baseline CREATE-only conforme convenção local. Não apagar ou migrar saldo/itens/produção existentes sem pedido expresso.
+12. NÃO MODIFIQUE recursos, arquivos de runtime, SQL de produção nem manifests nesta Wave 0. Permito somente documentação/relatório no próprio workspace se necessário, respeitando diretório de docs existente. A pasta de referência local é `D:\git-hub\repo_oficial\ref\trabalhos`; se não estiver acessível, registre isso e faça a análise dos recursos atuais sem fabricar detalhes das referências.
+
+ENTREGÁVEIS DA WAVE 0
+A. Mapa de dependências e owners por recurso, com evidência de arquivo/linha.
+B. Matriz de APIs reais (incluindo operações ausentes, tipos e critérios de autorização).
+C. Auditoria de cada referência relevante em `ref\trabalhos`, com **caminhos locais relativos reais**, melhores mecânicas, licenças, dependências, ameaças e proibições explícitas de cópia.
+D. Proposta da árvore enxuta `mz_jobs` coerente com as convenções locais, indicando arquivos da Wave 1 vs futuros.
+E. DTOs/estado de oferta, execução, settlement, prova de entrega e atributos de NPC; versões e índices/constraints.
+F. Diagrama de sequência da entrega simples e da falha economy/inventory, com plano idempotente.
+G. SQL baseline PROPOSTO (não executar), estratégia de rollout e rollback, detalhes da cadeia de custódia de bens/dinheiro.
+H. 15+ testes (casos normais, replay, race, relog, servidor restart, erro de recurso, duplicidade, exploit) e critérios PASS.
+I. Decisões arquiteturais (ADRs) que precisam de validação, riscos por severidade, quais pontos estão bloqueados por contrato público faltante.
+J. Uma proposta curta de WAVE 1 que implementa apenas a base, sem adicionar 20 trabalhos.
+
+FORMATO DA SUA RESPOSTA
+- Relatório objetivo, português claro, contendo VERIFICADO / PROPOSTO / PENDENTE separados.
+- Caminhos e linhas dos arquivos atuais (recursos MZ e referências `ref\trabalhos`) com evidências, sem assumir que docs históricos são verdade.
+- Explicite `RUNTIME NOT RUN` quando não executado. Não marcar os fluxos do jogo PASS só com teste estático.
+- Se houver impasse, reporte lacuna sem quebrar os limites de owner nem inventar compatibilidade.
+
+IMPORTANTE: QUERO PRIMEIRO UMA BASE CONFIÁVEL PARA ENTÃO IMPLEMENTAR CADA WAVE. NÃO COMECE A WAVE 1 NESTA TAREFA.

@@ -1,0 +1,6 @@
+{
+  "resource_disabled": "O sistema de trabalhos está desativado.",
+  "service_unavailable": "O sistema de trabalhos não está disponível.",
+  "invalid_request": "A solicitação de trabalho é inválida.",
+  "offer_unavailable": "Esta oferta não está mais disponível."
+}

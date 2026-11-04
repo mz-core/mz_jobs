@@ -1,0 +1,3 @@
+MZJobsConfig = {
+  Enabled = false
+}

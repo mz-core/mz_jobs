@@ -1,0 +1,6 @@
+{
+  "resource_disabled": "The jobs system is disabled.",
+  "service_unavailable": "The jobs system is unavailable.",
+  "invalid_request": "The job request is invalid.",
+  "offer_unavailable": "This offer is no longer available."
+}
